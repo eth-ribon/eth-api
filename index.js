@@ -2,6 +2,7 @@ const Web3 = require('web3');
 const Educa = require('./Educa.json');
 const WalletConnectProvider = require('@walletconnect/web3-provider');
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const celoContracKit = require("@celo/contractkit");
 
 const ACCOUNT_ADDRESS = process.env.PUBLIC_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
