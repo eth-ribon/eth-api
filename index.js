@@ -14,21 +14,23 @@ exports.handler = async (event) => {
     const studentAddress = body.studentAddress;
     const klass = body.class;
   
-    const provider = new WalletConnectProvider({
-      rpc: {
-        44787: ETH_NETWORK,
-      },
+    // const provider = new WalletConnectProvider({
+    //   rpc: {
+    //     44787: ETH_NETWORK,
+    //   },
+    // });
+
+    provider = new HDWalletProvider({
+      privateKeys: [PRIVATE_KEY],
+      providerOrUrl: ETH_NETWORK,
+      addressIndex: 0,
+      numberOfAddresses: 10
     });
 
-  //   provider = new HDWalletProvider({
-  //     mnemonic: PRIVATE_KEY,
-  //     providerOrUrl: ETH_NETWORK,
-  //     addressIndex: 0
-  // });
-
-    await provider.enable();
+    // await provider.enable();
     const web3 = new Web3(provider);
-    const kit = newKitFromWeb3(web3);
+    // const EducaContract = new web3.eth.Contract(Educa.abi, CONTRACT_ADDRESS);
+    const kit = celoContracKit.newKitFromWeb3(web3);
   
     const EducaContract = new kit.connection.web3.eth.Contract(
       Educa.abi,
@@ -48,6 +50,8 @@ exports.handler = async (event) => {
         statusCode: 200,
         body: JSON.stringify(result),
     };
+
+    console.log(response);
 
     return response;
 };

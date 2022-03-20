@@ -5,7 +5,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 const celoContracKit = require("@celo/contractkit");
 
 const ACCOUNT_ADDRESS = "0xdf0eE014447C73aBFB02B4D8C96052307cB47106"//process.env.PUBLIC_KEY;
-const PRIVATE_KEY = "defy garlic possible hole popular youth adjust arch valid open poet supreme happy hunt rather assist frog miss index elegant nose abstract opera already"
+const PRIVATE_KEY = "3784ae073658c321c8932b8b579ee7903310a169956ed1ce839be90db0d7e711"
 //process.env.PRIVATE_KEY;
 const ETH_NETWORK = "https://alfajores-forno.celo-testnet.org";
 const CONTRACT_ADDRESS = "0xa824DB66eb16B2a5dC94fDa40AEDD6f70D263544"//process.env.CONTRACT_ADDRESS;
@@ -23,13 +23,15 @@ const testFunction = async () => {
 
 
     provider = new HDWalletProvider({
-      mnemonic: PRIVATE_KEY,
+      privateKeys: [PRIVATE_KEY],
       providerOrUrl: ETH_NETWORK,
-      addressIndex: 0
+      addressIndex: 0,
+      numberOfAddresses: 10
     });
 
     // await provider.enable();
     const web3 = new Web3(provider);
+    // const EducaContract = new web3.eth.Contract(Educa.abi, CONTRACT_ADDRESS);
     const kit = celoContracKit.newKitFromWeb3(web3);
   
     const EducaContract = new kit.connection.web3.eth.Contract(
@@ -50,6 +52,8 @@ const testFunction = async () => {
         statusCode: 200,
         body: JSON.stringify(result),
     };
+
+    console.log(response);
 
     return response;
 };
